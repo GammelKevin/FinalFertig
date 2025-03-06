@@ -330,6 +330,15 @@
         margin-top: 4px;
         color: #666;
     }
+
+    .kitchen-hours-note {
+        text-align: center;
+        color: #c17817;
+        font-style: italic;
+        margin-top: -10px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+    }
 </style>
 
 <!-- Reservation Popup -->
@@ -469,6 +478,7 @@ document.addEventListener('keydown', function(e) {
     <div class="opening-hours-container">
         <div class="section-title">
             <h2>Unsere Öffnungszeiten</h2>
+            <p class="kitchen-hours-note">Warme Küche bis 21:00 Uhr</p>
         </div>
         <div class="hours-grid">
             {% for hour in opening_hours %}

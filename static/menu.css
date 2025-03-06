@@ -11,6 +11,18 @@
     margin-top: 60px;
 }
 
+.menu-notice {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.menu-notice p {
+    font-style: italic;
+    color: #c17817;
+    font-size: 1.1em;
+}
+
 .hero-overlay {
     position: absolute;
     top: 0;
