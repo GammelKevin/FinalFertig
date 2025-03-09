@@ -136,12 +136,12 @@
     .menu-page {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 40px 20px;
+        padding: 20px;
     }
 
     .menu-header {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     .menu-header h1 {
@@ -156,8 +156,8 @@
         color: #333;
         font-size: 2em;
         text-align: center;
-        margin: 40px 0 20px;
-        padding-bottom: 10px;
+        margin: 30px 0 15px;
+        padding-bottom: 8px;
         border-bottom: 2px solid #c17817;
     }
 
@@ -194,21 +194,22 @@
     }
 
     .menu-section {
-        margin-bottom: 40px;
+        margin-bottom: 25px;
     }
 
     .category-title {
         font-family: 'Playfair Display', serif;
         color: #333;
         font-size: 1.8em;
-        margin-bottom: 20px;
-        padding: 15px;
+        margin-bottom: 15px;
+        padding: 12px 15px;
         border-bottom: 2px solid #f0f0f0;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
         transition: background-color 0.3s ease;
+        border-radius: 8px 8px 0 0;
     }
 
     .category-title:hover {
@@ -227,7 +228,7 @@
     .menu-items {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 30px;
+        gap: 15px;
     }
 
     .menu-item {
@@ -237,6 +238,9 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
         will-change: opacity, transform;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .menu-item.active {
@@ -266,13 +270,17 @@
 
     .menu-item-content {
         padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .item-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 10px;
+        flex-wrap: wrap;
     }
 
     .item-name {
@@ -280,30 +288,36 @@
         font-size: 1.3em;
         color: #333;
         margin: 0;
+        flex: 1;
+        min-width: 200px;
+        padding-right: 10px;
     }
 
     .item-price {
         font-weight: bold;
         color: #c17817;
         font-size: 1.2em;
+        white-space: nowrap;
     }
 
     .description {
         color: #666;
         margin-bottom: 15px;
         line-height: 1.6;
+        flex-grow: 1;
     }
 
     .item-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
+        margin-top: auto;
     }
 
     .badge {
-        font-size: 0.8em;
-        padding: 4px 8px;
-        border-radius: 4px;
+        font-size: 0.75em;
+        padding: 3px 6px;
+        border-radius: 3px;
         background: #f5f5f5;
         color: #555;
     }
@@ -339,7 +353,7 @@
     }
 
     .food-categories, .drink-categories {
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     .no-items {
@@ -355,17 +369,19 @@
         overflow: hidden;
         opacity: 0;
         transition: opacity 0.3s ease;
-        display: none; /* Wird durch JavaScript gesteuert */
+        display: none;
+        padding-top: 5px;
     }
 
     .menu-items:not(.hidden) {
         opacity: 1;
-        display: block; /* Dies erlaubt uns, die Animation korrekt zu triggern */
+        display: block;
     }
 
     @media (max-width: 768px) {
         .menu-items {
             grid-template-columns: 1fr;
+            gap: 10px;
         }
         
         .search-container {
@@ -377,6 +393,23 @@
             width: 100%;
             border-radius: 8px;
             margin-bottom: 10px;
+        }
+        
+        .item-name {
+            min-width: 0;
+            margin-bottom: 5px;
+        }
+        
+        .category-title {
+            font-size: 1.5em;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .menu-items {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 1000px;
+            margin: 0 auto;
         }
     }
 </style>
