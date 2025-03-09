@@ -4,6 +4,7 @@ from models import db, PageVisit, GalleryView, DailyStats, GalleryImage
 from datetime import datetime, timedelta, time
 import logging
 import json
+from extensions import db
 
 # Logger konfigurieren
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -180,9 +181,67 @@ def update_visit_duration(visit_id, duration, screen_width=None, screen_height=N
         # Besuch in der Datenbank suchen
         visit = PageVisit.query.get(visit_id)
         
-        # Wenn der Besuch nicht gefunden wurde, abbrechen
+        # Wenn der Besuch nicht gefunden wurde, versuche einen Fallback über den letzten Besuch
         if not visit:
-            print(f"FEHLER: Besuch mit ID {visit_id} nicht gefunden")
+            print(f"WARNUNG: Besuch mit ID {visit_id} nicht gefunden - versuche Fallback")
+            
+            # Versuche, den letzten Besuch zu finden (ohne spezifische IP)
+            # Dies kann helfen, wenn die Sitzung neu gestartet wurde, aber die Besuchs-ID in der lokalen Sitzung bleibt
+            now = datetime.now()
+            ten_minutes_ago = now - timedelta(minutes=10)
+            
+            # Suche nach dem letzten Besuch innerhalb der letzten 10 Minuten
+            fallback_visit = PageVisit.query.filter(
+                PageVisit.timestamp >= ten_minutes_ago,
+                PageVisit.duration.is_(None)  # Nur Besuche ohne bereits gesetzte Dauer
+            ).order_by(PageVisit.timestamp.desc()).first()
+            
+            if fallback_visit:
+                print(f"FALLBACK: Verwende letzten Besuch mit ID {fallback_visit.id} statt {visit_id}")
+                visit = fallback_visit
+            else:
+                # Wenn kein passender Besuch gefunden wurde, erstelle einen neuen Besuch als Fallback
+                try:
+                    # IP-Adresse des Clients ermitteln (mit Proxy-Unterstützung)
+                    if request.headers.get('X-Forwarded-For'):
+                        ip_address = request.headers.get('X-Forwarded-For').split(',')[0].strip()
+                    else:
+                        ip_address = request.remote_addr
+                        
+                    # Aktuelle Seite aus dem Referer ermitteln (falls vorhanden)
+                    referer = request.headers.get('Referer', '')
+                    page = referer.replace(request.host_url, '/')
+                    if not page:
+                        page = '/'
+                        
+                    # Freundlichen Seitennamen ermitteln
+                    friendly_name = get_friendly_page_name(page)
+                    
+                    # Neuen Besuch erstellen
+                    print(f"FALLBACK: Erstelle neuen Besuch für Seite {page}")
+                    visit = PageVisit(
+                        page=page,
+                        page_friendly_name=friendly_name,
+                        ip_address=ip_address,
+                        user_agent=request.headers.get('User-Agent', ''),
+                        timestamp=datetime.now(),
+                        duration=duration,  # Setze die Dauer direkt
+                        screen_width=screen_width,
+                        screen_height=screen_height
+                    )
+                    db.session.add(visit)
+                    db.session.commit()
+                    print(f"FALLBACK: Neuer Besuch mit ID {visit.id} erstellt anstelle von {visit_id}")
+                    
+                    # Return here to avoid further processing
+                    return visit.id
+                except Exception as inner_e:
+                    print(f"FEHLER beim Erstellen des Fallback-Besuchs: {str(inner_e)}")
+                    return None
+            
+        # Wenn immer noch kein Besuch gefunden wurde, abbrechen
+        if not visit:
+            print(f"FEHLER: Kein passender Besuch für ID {visit_id} gefunden und Fallback fehlgeschlagen")
             return None
             
         # Begrenze die Dauer auf maximal 120 Sekunden (2 Minuten) pro Seite
