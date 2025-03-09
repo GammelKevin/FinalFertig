@@ -136,12 +136,12 @@
     .menu-page {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 30px;
     }
 
     .menu-header {
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 40px;
     }
 
     .menu-header h1 {
@@ -154,10 +154,10 @@
     .section-title {
         font-family: 'Playfair Display', serif;
         color: #333;
-        font-size: 2em;
+        font-size: 2.2em;
         text-align: center;
-        margin: 30px 0 15px;
-        padding-bottom: 8px;
+        margin: 50px 0 25px;
+        padding-bottom: 12px;
         border-bottom: 2px solid #c17817;
     }
 
@@ -167,7 +167,7 @@
         justify-content: center;
         align-items: center;
         max-width: 500px;
-        margin: 0 auto 25px;
+        margin: 0 auto 40px;
     }
 
     #menu-search {
@@ -194,15 +194,15 @@
     }
 
     .menu-section {
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
     .category-title {
         font-family: 'Playfair Display', serif;
         color: #333;
-        font-size: 1.8em;
-        margin-bottom: 12px;
-        padding: 10px 15px;
+        font-size: 1.9em;
+        margin-bottom: 20px;
+        padding: 15px 20px;
         border-bottom: 2px solid #f0f0f0;
         cursor: pointer;
         display: flex;
@@ -228,14 +228,14 @@
     .menu-items {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
+        gap: 40px;
     }
 
     .menu-item {
         background: #fff;
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
         will-change: opacity, transform;
         height: 100%;
@@ -269,7 +269,7 @@
     }
 
     .menu-item-content {
-        padding: 18px;
+        padding: 25px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -279,18 +279,18 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         flex-wrap: wrap;
     }
 
     .item-name {
         font-family: 'Playfair Display', serif;
-        font-size: 1.3em;
+        font-size: 1.4em;
         color: #333;
         margin: 0;
         flex: 1;
         min-width: 200px;
-        padding-right: 10px;
+        padding-right: 15px;
     }
 
     .item-price {
@@ -302,22 +302,22 @@
 
     .description {
         color: #666;
-        margin-bottom: 12px;
-        line-height: 1.6;
+        margin-bottom: 20px;
+        line-height: 1.7;
         flex-grow: 1;
     }
 
     .item-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 5px;
+        gap: 8px;
         margin-top: auto;
     }
 
     .badge {
-        font-size: 0.75em;
-        padding: 3px 6px;
-        border-radius: 3px;
+        font-size: 0.8em;
+        padding: 4px 8px;
+        border-radius: 4px;
         background: #f5f5f5;
         color: #555;
     }
@@ -353,7 +353,7 @@
     }
 
     .food-categories, .drink-categories {
-        margin-bottom: 25px;
+        margin-bottom: 50px;
     }
 
     .no-items {
@@ -370,7 +370,7 @@
         opacity: 0;
         transition: opacity 0.3s ease;
         display: none;
-        padding-top: 5px;
+        padding-top: 10px;
     }
 
     .menu-items:not(.hidden) {
@@ -381,7 +381,7 @@
     @media (max-width: 768px) {
         .menu-items {
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 30px;
         }
         
         .search-container {
@@ -408,9 +408,9 @@
     @media (min-width: 1200px) {
         .menu-items {
             grid-template-columns: repeat(2, 1fr);
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            gap: 20px;
+            gap: 40px;
         }
     }
 </style>
