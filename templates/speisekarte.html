@@ -136,12 +136,12 @@
     .menu-page {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 10px;
+        padding: 20px;
     }
 
     .menu-header {
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 25px;
     }
 
     .menu-header h1 {
@@ -154,10 +154,10 @@
     .section-title {
         font-family: 'Playfair Display', serif;
         color: #333;
-        font-size: 1.8em;
+        font-size: 2em;
         text-align: center;
-        margin: 20px 0 10px;
-        padding-bottom: 5px;
+        margin: 30px 0 15px;
+        padding-bottom: 8px;
         border-bottom: 2px solid #c17817;
     }
 
@@ -167,7 +167,7 @@
         justify-content: center;
         align-items: center;
         max-width: 500px;
-        margin: 0 auto 15px;
+        margin: 0 auto 25px;
     }
 
     #menu-search {
@@ -194,16 +194,16 @@
     }
 
     .menu-section {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     .category-title {
         font-family: 'Playfair Display', serif;
         color: #333;
-        font-size: 1.6em;
-        margin-bottom: 8px;
-        padding: 8px 12px;
-        border-bottom: 1px solid #f0f0f0;
+        font-size: 1.8em;
+        margin-bottom: 12px;
+        padding: 10px 15px;
+        border-bottom: 2px solid #f0f0f0;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
@@ -228,14 +228,14 @@
     .menu-items {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 8px;
+        gap: 20px;
     }
 
     .menu-item {
         background: #fff;
-        border-radius: 6px;
+        border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        box-shadow: 0 3px 12px rgba(0,0,0,0.05);
         transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
         will-change: opacity, transform;
         height: 100%;
@@ -269,7 +269,7 @@
     }
 
     .menu-item-content {
-        padding: 12px 15px;
+        padding: 18px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -279,18 +279,18 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        margin-bottom: 6px;
+        margin-bottom: 10px;
         flex-wrap: wrap;
     }
 
     .item-name {
         font-family: 'Playfair Display', serif;
-        font-size: 1.2em;
+        font-size: 1.3em;
         color: #333;
         margin: 0;
         flex: 1;
         min-width: 200px;
-        padding-right: 8px;
+        padding-right: 10px;
     }
 
     .item-price {
@@ -302,21 +302,21 @@
 
     .description {
         color: #666;
-        margin-bottom: 10px;
-        line-height: 1.5;
+        margin-bottom: 12px;
+        line-height: 1.6;
         flex-grow: 1;
     }
 
     .item-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 4px;
+        gap: 5px;
         margin-top: auto;
     }
 
     .badge {
-        font-size: 0.7em;
-        padding: 2px 5px;
+        font-size: 0.75em;
+        padding: 3px 6px;
         border-radius: 3px;
         background: #f5f5f5;
         color: #555;
@@ -353,7 +353,7 @@
     }
 
     .food-categories, .drink-categories {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
     }
 
     .no-items {
@@ -370,7 +370,7 @@
         opacity: 0;
         transition: opacity 0.3s ease;
         display: none;
-        padding-top: 2px;
+        padding-top: 5px;
     }
 
     .menu-items:not(.hidden) {
@@ -381,7 +381,7 @@
     @media (max-width: 768px) {
         .menu-items {
             grid-template-columns: 1fr;
-            gap: 6px;
+            gap: 15px;
         }
         
         .search-container {
@@ -408,9 +408,9 @@
     @media (min-width: 1200px) {
         .menu-items {
             grid-template-columns: repeat(2, 1fr);
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            gap: 6px;
+            gap: 20px;
         }
     }
 </style>
