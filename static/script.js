@@ -40,24 +40,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Intersection Observer for scroll animations
     const observerOptions = {
         root: null,
-        threshold: 0.05,
-        rootMargin: '50px'
+        threshold: 0.01,
+        rootMargin: '100px'
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 requestAnimationFrame(() => {
-                    entry.target.classList.add('active');
+                    const style = window.getComputedStyle(entry.target);
+                    if (style.display !== 'none' && !entry.target.closest('.hidden')) {
+                        entry.target.classList.add('active');
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
                 });
-                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe all animated elements
+    // Observe all animated elements including menu items
     document.querySelectorAll('.content-reveal, .fade-up, .scale-in, .about-content, .menu-item').forEach(el => {
         observer.observe(el);
+        
+        if (el.classList.contains('menu-item')) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+        }
     });
 
     // Mobile Menu with smooth transitions

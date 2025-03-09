@@ -235,20 +235,16 @@
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        opacity: 0;
-        transform: translateY(20px);
         transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
         will-change: opacity, transform;
     }
 
     .menu-item.active {
-        opacity: 1;
-        transform: translateY(0);
+        /* Diese Klasse dient jetzt nur noch als Marker für den JavaScript-Code */
     }
 
     .menu-item:hover {
-        transform: translateY(-5px);
+        transform: translateY(-5px) !important; /* Das !important stellt sicher, dass der Hover-Effekt Vorrang hat */
         box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
 
@@ -357,14 +353,14 @@
     /* Verbesserte Übergangseffekte für Kategorie-Toggling */
     .menu-items {
         overflow: hidden;
-        max-height: 0;
         opacity: 0;
-        transition: max-height 0.5s ease, opacity 0.5s ease;
+        transition: opacity 0.3s ease;
+        display: none; /* Wird durch JavaScript gesteuert */
     }
 
     .menu-items:not(.hidden) {
-        max-height: 5000px; /* Großer Wert, der alle Inhalte abdeckt */
         opacity: 1;
+        display: block; /* Dies erlaubt uns, die Animation korrekt zu triggern */
     }
 
     @media (max-width: 768px) {
@@ -399,6 +395,14 @@
         });
         console.log("Menu items hidden:", document.querySelectorAll('.menu-items.hidden').length);
         
+        // Aktiviere Animation sofort für alle Menüelemente (auch wenn sie versteckt sind)
+        // Dies bereitet sie vor, damit die Animation sofort startet, wenn sie sichtbar werden
+        document.querySelectorAll('.menu-item').forEach(item => {
+            // Den active-Status setzen wir noch nicht, nur die Grundeigenschaften
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+        });
+        
         // Accordion für Kategorien
         const categoryTitles = document.querySelectorAll('.category-title');
         
@@ -413,17 +417,29 @@
                 if (isExpanded) {
                     menuItems.classList.add('hidden');
                     icon.textContent = '+';
+                    
+                    // Zurücksetzen der Animation für alle Elemente in dieser Kategorie
+                    menuItems.querySelectorAll('.menu-item').forEach(item => {
+                        item.classList.remove('active');
+                        // Wir setzen den Anfangszustand sofort zurück
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                    });
                 } else {
                     // Verzögere das Rendern der Artikel bis die Animation beginnt
                     menuItems.classList.remove('hidden');
                     icon.textContent = '-';
                     
-                    // Aktiviere die Animation für jedes Element mit einer kleinen Verzögerung
+                    // Aktiviere die Animation für jedes Element sofort nach dem Öffnen
                     const items = menuItems.querySelectorAll('.menu-item');
                     items.forEach((item, index) => {
+                        // Wichtig: Wir simulieren die Animation nur mit einer minimalen Verzögerung,
+                        // damit der Browser einen Frame-Unterschied hat
                         setTimeout(() => {
                             item.classList.add('active');
-                        }, index * 50); // Progressive Verzögerung für kaskadierenden Effekt
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 10 + (index * 30)); // Minimale Verzögerung für bessere Performance
                     });
                 }
             });
@@ -449,6 +465,8 @@
                     const items = section.querySelectorAll('.menu-item');
                     items.forEach(item => {
                         item.classList.remove('active');
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
                         item.style.display = 'block';
                     });
                 });
@@ -480,10 +498,14 @@
                         // Aktiviere Animation für gefundene Elemente
                         requestAnimationFrame(() => {
                             item.classList.add('active');
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
                         });
                     } else {
                         item.style.display = 'none';
                         item.classList.remove('active');
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
                     }
                 });
                 
@@ -491,6 +513,7 @@
                 if (hasVisibleItems) {
                     section.style.display = 'block';
                     menuItemsContainer.classList.remove('hidden'); // Wichtig: Container sichtbar machen
+                    menuItemsContainer.style.display = 'block'; // Explizit display setzen für bessere Kompatibilität
                     section.querySelector('.toggle-icon').textContent = '-';
                 } else {
                     section.style.display = 'none';
